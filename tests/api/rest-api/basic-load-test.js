@@ -1,7 +1,7 @@
 // This test will demonstrate the same tests as the basic-test but under a larger load using stages and thresholds to cause failures if our tests do not match expected results
-import { check, group, sleep } from "k6";
+import { check, group } from "k6";
 import http from "k6/http";
-import { Counter, Rate, Trend } from "k6/metrics";
+import { Rate } from "k6/metrics";
 
 const baseUrl = 'https://test.k6.io/';
 const payload = JSON.stringify({

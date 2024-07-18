@@ -4,56 +4,23 @@
 */  
 import { browser } from 'k6/browser'
 import http from 'k6/http'
-import { check, sleep } from 'k6';
+import { sleep } from 'k6';
+import { config } from '../../utils/test-config.js'
+import { getToken, waitForHeading, getHeading, checkHeading, checkResponse } from '../../utils/helpers.js';
+import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 // Constants
 const startPageTitleContent = 'Apply online for a UK passport';
 const overseasHeadingContent = 'Do you live in the UK?';
 const dateOfBirthHeadingContent = 'Date of birth';
-const baseUrl = '';
-
-// Function to check the heading on web based tests when we reach a new page
-async function checkHeading(pageName, pageTitleLocator, pageTitleExpected){
-  let pageTitle = await pageTitleLocator.textContent();
-  check(pageTitle, {
-    [`${pageName} is correct`]: title => title.includes(pageTitleExpected)
-  })
-}
-
-// Function to return the heading element on a page
-async function getHeading(page){
-  return await page.locator('h1[class="govuk-fieldset__heading"]');
-}
-
-// Function to wait for a heading to appear on a page before proceeeding with the next steps
-async function waitForHeading(page){
-  await page.waitForSelector('h1[class="govuk-fieldset__heading"]');
-}
-
-// Function to check the response of our protocol tests
-function checkResponse(res, pageName, titleContent){
-  check(res, {
-    [`${pageName} - Status is 200`]: res => res.status === 200,
-    [`${pageName} - Heading appears in body`]: (res) => res.body.includes(titleContent),
-})
-}
-
-// Function to retrieve the token on each protocol execution to allow the next to run with this token in the params
-export function getToken(res){
-  const csrfTokenRegExp = /name="x-csrf-token" value="([^"]+)"/;
-  const match = res.body.match(csrfTokenRegExp);
-
-  let csrfToken = null;
-  if (match && match.length > 1) {
-    csrfToken = match[1];
-  }
-  return csrfToken;
-}
+const baseUrl = config['base_url'];
+const test_mode = __ENV.test_mode;
+const testStages = config[test_mode]["stages"];
 
 // Options to dictate the performance run config for each test
 export const options = {
   scenarios: {
-      ui1: {
+      frontend: {
           executor: 'constant-vus',
           exec: 'browserTest',
           options: {
@@ -65,30 +32,25 @@ export const options = {
           startTime: '0s',
           duration: '30s'
       },
-      ui2: {
-          executor: 'constant-vus',
-          exec: 'browserTest',
-          options: {
-              browser: {
-                  type: 'chromium',
-              },
-          },
-          vus: 2,
-          startTime: '30s',
-          duration: '30s'
-      },
       backend: {
-          executor: 'constant-vus',
-          exec: 'protocolTest',
-          vus: 1,
-          startTime: '30s',
-          duration: '60s'
-      }
+        executor: 'ramping-vus',  // Changed from 'constant-vus' to 'ramping-vus'
+        exec: 'protocolTest',
+        startTime: '30s',
+        stages: testStages
+    },
   },
+
   thresholds: {
-      'browser_http_req_duration{scenario:ui1}': [],
+      'browser_http_req_duration{scenario:frontend}': [],
       'browser_http_req_duration{scenario:ui2}': [],
   },
+}
+
+// Creates a HTML file to summarise the test results
+export function handleSummary(data) {
+  return {
+      [`test-results/${test_mode}-performance-summary.html`]: htmlReport(data),
+  };
 }
 
 // Browser test steps

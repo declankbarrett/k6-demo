@@ -5,6 +5,7 @@ import { check, sleep } from 'k6';
 
 const workdayTitle = "Get live and thrive with one of the community's first Workday partners";
 
+
 export const options = {
   scenarios: {
     browser: {
