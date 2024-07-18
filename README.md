@@ -23,12 +23,12 @@ The repo covers:
 
 To run the tests that are within the api/web folders, we need to run
 
-- k6 run <path to file>
+- k6 run {pathToFile}
   - For example k6 run tests/api/rest-api/basic-test.js
 
 The tests which incorporate the web can be run in headless mode by adjusting the run command as such
 
-- K6_BROWSER_HEADLESS=false k6 run <path to file>
+- K6_BROWSER_HEADLESS=false k6 run {path to file}
 
 # The hybrid test
 
@@ -58,7 +58,7 @@ graphical results of this can be seen in the screenshots folder.
 To run this you need to:
 
 - Install k6 (brew install k6)
-- Authenticate (k6 login cloud --token <your k6 cloud token>)
+- Authenticate (k6 login cloud --token {your k6 cloud token})
 - run the tests (npm run test:grafana) - This is currently only set up to run the smoke tests, you can simply change the 'test_mode' in the run command in the package.json
 
 # Further adjustments
