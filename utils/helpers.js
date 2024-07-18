@@ -1,5 +1,7 @@
 import { check } from 'k6';
 
+// ***************** BROWSER FUNCTIONS ******************** //
+
 // Function to check the heading on web based tests when we reach a new page
 export async function checkHeading(pageName, pageTitleLocator, pageTitleExpected){
   let pageTitle = await pageTitleLocator.textContent();
@@ -17,6 +19,8 @@ export async function getHeading(page){
 export async function waitForHeading(page){
   await page.waitForSelector('h1[class="govuk-fieldset__heading"]');
 }
+
+// *********** PROTOCOL FUNCTIONS ******************* // 
 
 // Function to check the response of our protocol tests
 export function checkResponse(res, pageName, titleContent){

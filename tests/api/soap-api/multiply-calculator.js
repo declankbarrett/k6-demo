@@ -1,3 +1,4 @@
+// This is an example of a loaded SOAP API test using K6 which increases the number of VUs overtime in a ramping format
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
@@ -7,7 +8,6 @@ export const options = {
     http_req_duration: ['p(99)<1000'], 
   },
   scenarios: {
-    // define scenarios
     breaking: {
       executor: "ramping-vus",
       stages: [
@@ -19,7 +19,6 @@ export const options = {
         { duration: "50s", target: 100 },
         { duration: "50s", target: 120 },
         { duration: "50s", target: 140 },
-        //....
       ],
     },
   },

@@ -1,7 +1,7 @@
 {
   "name": "k6-demo",
   "version": "1.0.0",
-  "description": "Introdcution to K6 basics",
+  "description": "Introduction to K6 basics",
   "scripts": {
     "test:smoke": "K6_BROWSER_HEADLESS=false k6 run -e test_mode=smoke tests/hybrid/hybrid-test.js",
     "test:load":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=load tests/hybrid/hybrid-test.js",

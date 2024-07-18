@@ -1,5 +1,5 @@
-// This test is just to show an example of a login using a csrttoken, stripped from the k6 example script, utilising a json file to fill the data in the request also.
-// Becuase this is just an example showing auth, I did put any load on this test, the full test example can be seen in example-script.js
+// This test is just to show an example of a login using a csrftoken, stripped from the k6 example script, utilising a json file to fill the data in the request also.
+// Becuase this is just an example showing auth, I did not put any load on this test
 import http from "k6/http";
 import { check, group, sleep } from "k6";
 import { Counter, Rate, Trend } from "k6/metrics";
@@ -9,6 +9,7 @@ let checkFailureRate = new Rate("check_failure_rate");
 let timeToFirstByte = new Trend("time_to_first_byte", true);
 const loginData = JSON.parse(open("../../../utils/users.json")); 
 
+// If our tests results fall outside of our thresholds the tests will fail, we can set thresholds based on the performance metrics required per project
 export let options = {
   thresholds: {
       "http_req_duration": ["p(95)<1500"],
@@ -16,6 +17,7 @@ export let options = {
   },
 }
 
+// This function is a login test using the sample K6 test and K6 API, it will grab a token and use this token in the next request to authenticate login
 export default function() {
   group("Login", function() {
     let res = http.get("http://test.k6.io/my_messages.php");

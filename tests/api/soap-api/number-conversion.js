@@ -1,3 +1,4 @@
+// This is a simple SOAP API test using an example script found online to demonstrate K6 ability to test SOAP APIs as well as its preferred REST APIs.
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
