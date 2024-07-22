@@ -5,8 +5,8 @@
 import { browser } from 'k6/browser'
 import http from 'k6/http'
 import { sleep } from 'k6';
-import { config } from '../../utils/test-config.js'
-import { getToken, waitForHeading, getHeading, checkHeading, checkResponse } from '../../utils/helpers.js';
+import { config } from '../../../utils/test-config.js'
+import { getToken, waitForHeading, getHeading, checkHeading, checkResponse } from '../../../utils/helpers.js';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js';
 
 // Constants

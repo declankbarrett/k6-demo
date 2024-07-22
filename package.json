@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Introduction to K6 basics",
   "scripts": {
-    "test:smoke": "K6_BROWSER_HEADLESS=false k6 run -e test_mode=smoke tests/hybrid/hybrid-test.js",
-    "test:load":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=load tests/hybrid/hybrid-test.js",
-    "test:stress":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=stress tests/hybrid/hybrid-test.js",
-    "test:soak":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=soak tests/hybrid/hybrid-test.js",
-    "test:grafana": "k6 cloud -e test_mode=smoke tests/hybrid/hybrid-test.js"
+    "test:smoke": "K6_BROWSER_HEADLESS=false k6 run -e test_mode=smoke tests/performance/hybrid/hybrid-test.js",
+    "test:load":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=load tests/performance/hybrid/hybrid-test.js",
+    "test:stress":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=stress tests/performance/hybrid/hybrid-test.js",
+    "test:soak":"K6_BROWSER_HEADLESS=false k6 run -e test_mode=soak tests/performance/hybrid/hybrid-test.js",
+    "test:grafana": "k6 cloud -e test_mode=smoke tests/performance/hybrid/hybrid-test.js",
+    "test:functionality": "k6 run tests/api-functionality/basic-api-functionality-test.js"
   }
 }

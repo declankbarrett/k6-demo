@@ -11,6 +11,7 @@ The repo covers:
 - Basic testing of SOAP API
 - Basic UI test (on Kainos website)
 - A full hybrid test
+- API functionality tests
 
 # Prerequisites
 
@@ -24,7 +25,7 @@ The repo covers:
 To run the tests that are within the api/web folders, we need to run
 
 - k6 run {pathToFile}
-  - For example k6 run tests/api/rest-api/basic-test.js
+  - For example k6 run tests/performance/api/rest-api/basic-test.js
 
 The tests which incorporate the web can be run in headless mode by adjusting the run command as such
 
@@ -46,6 +47,15 @@ The hybrid test is the most complete test in the repo, and covers off mulitple d
 To run these we have seperate run commmands which are outlined in the package.json, all of these run the web tests in headed mode, to change this either remove the K6_BROWSER_HEADLESS=false from the run command or change the false to true
 
 You are also welcome to change the run config for these tests in the test-config file which can be found in the utils folder.
+
+# Functionality tests
+
+We can run the functionality tests using the command
+
+- npm run test:functionality
+
+This will run a check on a bunch of APIs and then error at the end of running all tests if the check % is not equal to 100%
+A more indepth description can be seen in a comment at the top of the file for the functionality tests
 
 # Visual Outputs
 

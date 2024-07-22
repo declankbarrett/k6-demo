@@ -7,7 +7,7 @@ import { Counter, Rate, Trend } from "k6/metrics";
 let successfulLogins = new Counter("successful_logins");
 let checkFailureRate = new Rate("check_failure_rate");
 let timeToFirstByte = new Trend("time_to_first_byte", true);
-const loginData = JSON.parse(open("../../../utils/users.json")); 
+const loginData = JSON.parse(open("../../../../utils/users.json")); 
 
 // If our tests results fall outside of our thresholds the tests will fail, we can set thresholds based on the performance metrics required per project
 export let options = {
